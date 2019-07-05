@@ -16,33 +16,87 @@ import java.util.ArrayList;
 public class JobForm {
 
     @NotNull
-    @Size(min=1, message = "Name may not be empty")
+    @Size(min=1, message = "A Name is Required!!!")
     private String name;
 
     @NotNull
     private int employerId;
 
-    /*
-        TODO #3 - Included other fields needed to create a job,
-        with correct validation attributes and display names.
-        Don't forget to add getters and setters
-     */
-
+    @NotNull
     private ArrayList<Employer> employers;
+
+    public Employer getEmployer(){
+        JobData jobData = JobData.getInstance();
+        return jobData.getEmployers().findById(this.employerId);
+    }
+
+    @NotNull
+    private int locationId;
+
+    public Location getLocation(){
+        JobData jobData = JobData.getInstance();
+        return jobData.getLocations().findById(this.locationId);
+    }
+
+    public int getLocationId() { return locationId; }
+
+    public void setLocationId(int locationId) { this.locationId = locationId; }
+
+    @NotNull
     private ArrayList<Location> locations;
+
+    @NotNull
+    private int coreCompetencyId;
+
+    public CoreCompetency getCompetency(){
+        JobData jobData = JobData.getInstance();
+        return jobData.getCoreCompetencies().findById(this.coreCompetencyId);
+    }
+
+    public int getCoreCompetencyId() {
+        return coreCompetencyId;
+    }
+
+    public void setCoreCompetencyId(int coreCompetenciesId) {
+        this.coreCompetencyId = coreCompetenciesId;
+    }
+
+    @NotNull
     private ArrayList<CoreCompetency> coreCompetencies;
+
+    private int positionTypeId;
+
+    public PositionType getPositionType(){
+        JobData jobData = JobData.getInstance();
+        return jobData.getPositionTypes().findById(this.positionTypeId);
+    }
+
+    public int getPositionTypeId() {
+        return positionTypeId;
+    }
+
+    public void setPositionTypeId(int positionTypesId) {
+        this.positionTypeId = positionTypesId;
+    }
+
+    @NotNull
     private ArrayList<PositionType> positionTypes;
+    /*
+            TODO #3 - Included other fields needed to create a job, - Done
+            with correct validation attributes and display names.
+            Don't forget to add getters and setters
+         */
 
     public JobForm() {
 
         JobData jobData = JobData.getInstance();
-
         /*
-            TODO #4 - populate the other ArrayList collections needed in the view
+            TODO #4 - populate the other ArrayList collections needed in the view - Done
         */
-
         employers = jobData.getEmployers().findAll();
-
+        locations = jobData.getLocations().findAll();
+        coreCompetencies = jobData.getCoreCompetencies().findAll();
+        positionTypes = jobData.getPositionTypes().findAll();
     }
 
     public String getName() {
